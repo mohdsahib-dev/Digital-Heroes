@@ -46,10 +46,15 @@ export default function AuthPage() {
       });
 
       if (error) {
-        setMessage(error.message);
-        setLoading(false);
-        return;
-      }
+  console.error("LOGIN ERROR:", error);
+
+  setMessage(
+    `${error.message}${error.code ? ` | Code: ${error.code}` : ""}`
+  );
+
+  setLoading(false);
+  return;
+}
 
       if (data.user) {
         await supabase.from("profiles").insert({
